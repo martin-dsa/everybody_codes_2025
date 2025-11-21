@@ -32,21 +32,19 @@ fn main() {
 
     let result = match cli.command {
         Commands::Scaffold { quest, part } => {
-            if let Some(p) = part {
-                if p < 1 || p > 3 {
+            if let Some(p) = part
+                && (!(1..=3).contains(&p)) {
                     eprintln!("Part must be between 1 and 3");
                     std::process::exit(1);
                 }
-            }
             scaffold_quest(quest, part)
         }
         Commands::Solve { quest, part } => {
-            if let Some(p) = part {
-                if p < 1 || p > 3 {
+            if let Some(p) = part
+                && (!(1..=3).contains(&p)) {
                     eprintln!("Part must be between 1 and 3");
                     std::process::exit(1);
                 }
-            }
             let submit = part.is_some();
             solve_quest(quest, part, submit)
         }

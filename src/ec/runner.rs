@@ -85,11 +85,10 @@ fn format_submission_response(response: &str) -> Option<String> {
         if correct {
             let mut parts = vec![format!("{}✓ Correct answer!{}", ANSI_GREEN, ANSI_RESET)];
 
-            if let Some(global_place) = json.get("globalPlace").and_then(|v| v.as_i64()) {
-                if global_place > 0 {
+            if let Some(global_place) = json.get("globalPlace").and_then(|v| v.as_i64())
+                && global_place > 0 {
                     parts.push(format!("Global rank: #{}", global_place));
                 }
-            }
 
             Some(parts.join(" - "))
         } else {
