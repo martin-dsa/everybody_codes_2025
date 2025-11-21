@@ -124,7 +124,10 @@ impl Client {
     }
 
     fn read_session() -> Result<String, ClientError> {
-        let home = std::env::var("HOME").map_err(|_| ClientError::SessionNotFound)?;
+        let home = std::env::var("HOME")
+            .or_else(|_| std::env::var("HOMEPATH"))
+            .map_err(|_| ClientError::SessionNotFound)?;
+
         let session_path = PathBuf::from(home).join(".ec-session");
 
         if !session_path.exists() {
