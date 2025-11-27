@@ -9,7 +9,6 @@ use std::path::PathBuf;
 type Aes256CbcDec = Decryptor<Aes256>;
 
 const BASE_URL: &str = "https://everybody.codes";
-const CDN_URL: &str = "https://everybody-codes.b-cdn.net";
 
 #[derive(Debug)]
 pub enum ClientError {
@@ -183,7 +182,7 @@ impl Client {
     pub fn fetch_encrypted_input(&self, quest: u8, part: u8) -> Result<String, ClientError> {
         let url = format!(
             "{}/assets/{}/{}/input/{}.json",
-            CDN_URL, self.event, quest, self.seed
+            BASE_URL, self.event, quest, self.seed
         );
 
         let response = self
